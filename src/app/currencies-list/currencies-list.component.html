@@ -1,1 +1,36 @@
-<p>currencies-list works!</p>
+<h3>Currency List</h3>
+
+<div>
+    <form [formGroup]="conversionForm" (change)="updateConversion(conversionForm.value)">
+        <label for="value">Amount</label>
+        <div class="selector-group-short">
+            <input if='value' type="text" [formControlName]="'value'">
+            <select id="selectedCurrency" [formControlName]="'selectedCurrency'">
+                <option *ngFor="let currency of apiCurrency | async | keyvalue" [value]="currency.key">
+                    {{currency.key}}
+                </option>
+            </select>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="currencyList.length > 0; else placeholderText;">
+    <table class="custom-table">
+        <tr>
+            <th>Currency</th>
+            <th>Value</th>
+            <th>Exchange Rate</th>
+        </tr>
+        <tr *ngFor="let currency of currencyList">
+            <td>{{currency.currency}}</td>
+            <td>{{currency.value}}</td>
+            <td>{{currency.rate}}</td>
+        </tr>
+    </table>
+</div>
+
+<ng-template #placeholderText>
+    <div>
+        <h5>Add more currencies.</h5>
+    </div>
+</ng-template>

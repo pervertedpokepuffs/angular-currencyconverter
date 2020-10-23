@@ -1,0 +1,15 @@
+<h3>Add New Currency</h3>
+
+<form [formGroup]="currencyForm" (ngSubmit)="onSubmit(currencyForm.value)">
+    <div>
+        <label for="currency-selector">Currency</label>
+        <div class="selector-group">
+            <select id="selectedCurrency" [formControlName]="'selectedCurrency'">
+                <option *ngFor="let currency of apiCurrency | async | keyvalue" [value]="currency.key">
+                    {{currency.value}} ({{currency.key}})
+                </option>
+            </select>
+            <button type="submit">Add</button>
+        </div>
+    </div>
+</form>
